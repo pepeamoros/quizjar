@@ -38,18 +38,17 @@ sequelize.sync().then(function() {
   Quiz.count().then(function (count){
     if(count === 0) {   // la tabla se inicializa solo si está vacía
       Quiz.bulkCreate( 
-        [ 
-        
-        {pregunta:'Capital de Alemania', respuesta:'Berlín'},
-        {pregunta:'Capital de Austria', respuesta:'Viena'},
-        {pregunta:'Capital de Bélgica', respuesta:'Bruselas'},
-        {pregunta:'Capital de España', respuesta:'Madrid'},
-        {pregunta:'Capital de Francia', respuesta:'París'},
-        {pregunta:'Capital de Grecia', respuesta:'Atenas'},
-        {pregunta:'Capital de Italia', respuesta:'Roma'},
-        {pregunta:'Capital de Portugal', respuesta:'Lisboa'},
-        {pregunta:'Capital de Reino Unido', respuesta:'Londres'},
-        {pregunta:'Capital de Rusia', respuesta:'Moscú'}
+        [         
+        {tema:'humanidades', pregunta:'Capital de Alemania', respuesta:'Berlín'},
+        {tema:'humanidades', pregunta:'Capital de Italia', respuesta:'Roma'},
+        {tema:'humanidades', pregunta:'Capital de Portugal', respuesta:'Lisboa'},        
+        {tema:'tecnologia', pregunta:'Capital de España', respuesta:'Madrid'},
+        {tema:'tecnologia', pregunta:'Capital de Francia', respuesta:'París'},
+        {tema:'ciencia', pregunta:'Capital de Grecia', respuesta:'Atenas'},
+        {tema:'ciencia', pregunta:'Capital de Reino Unido', respuesta:'Londres'},
+        {tema:'ocio', pregunta:'Donde juega Messi', respuesta:'Barcelona'},
+        {tema:'ocio', pregunta:'Piloto de McLaren-Honda', respuesta:'Alonso'},
+        {tema:'otro', pregunta:'Capital de Rusia', respuesta:'Moscú'}
         ]
       ).then(function(){console.log('Base de datos inicializada')});
     };

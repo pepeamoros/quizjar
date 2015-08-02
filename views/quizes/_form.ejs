@@ -1,6 +1,33 @@
+
+<%
+// Array de opciones para tema 
+var arrayTemas = {
+  otro:         "Otro", 
+  humanidades:  "Humanidades", 
+  ocio:         "Ocio",
+  ciencia:      "Ciencia",
+  tecnologia:   "tecnologia"
+};
+%>
+
+<br>
+<label for="preg" class="rem">Tema:</label>
+<select name="quiz[tema]">
+<%
+for (var key in arrayTemas) {
+	 var valor = arrayTemas[key];
+	 %>
+	 <option value="<%= valor %>" <%= (quiz.tema === valor ? " selected " : "") %> ><%= arrayTemas[key] %></option>
+	 <%
+}
+%>
+</select><p>
+
 <label for="preg" class="rem">Pregunta:</label>
 <input type="text" id="preg" name="quiz[pregunta]" value="<%= quiz.pregunta %>"/> <p>
+
 <label for="resp" class="rem">Respuesta:</label>
 <input type="text" id="resp" name="quiz[respuesta]" value="<%= quiz.respuesta %>"/> <p>
+<br>
 <a href="/quizes"><button type="button">Cancelar</button></a>
 <input type="submit" value="Salvar">
