@@ -1,6 +1,6 @@
 var models = require('../models/models.js');
 
-
+/*
 // Array de de opciones para tema
 var arrayTemas = {
   otro:         "Otro", 
@@ -9,7 +9,7 @@ var arrayTemas = {
   ciencia:      "Ciencia",
   tecnologia:   "tecnologia"
 };
-
+*/
 
 
 // Autoload :id
@@ -24,7 +24,7 @@ exports.load = function(req, res, next, quizId) {
   ).catch(function(error){next(error)});
 };
 
-
+/*
 // GET /quizes
 exports.index = function(req, res) {
   models.Quiz.findAll().then(
@@ -33,6 +33,35 @@ exports.index = function(req, res) {
     }
   ).catch(function(error){next(error)});
 };
+*/
+
+// GET /quizes
+// Si hay un parametro search:
+// Remplaza el principio del string, los espacios, y el fin del string con % 
+// y lo guarda en la variable search
+// con la opcion "order:" ordena las preguntas filtradas
+
+exports.index = function(req, res){
+  if(req.query.search) { // texto seleccionado
+    var filtro = (req.query.search || '').replace(" ", "%");
+    models.Quiz.findAll({where:["pregunta like ?", '%'+filtro+'%'],order:'pregunta ASC'}).then(function(quizes){
+    res.render('quizes/index', {quizes: quizes, errors: []});
+    }).catch(function(error) { next(error);});
+
+  } else {     // tematica seleccionada
+    if(req.query.tema) {
+      var filtro = (req.query.tema || '');
+      models.Quiz.findAll({where:["tema like ?", '%'+filtro+'%'],order:'tema ASC'}).then(function(quizes){
+      res.render('quizes/index', {quizes: quizes, errors: []});
+      }).catch(function(error) { next(error);});
+    } else {    // nada seleccionado
+      models.Quiz.findAll({order:'tema ASC'}).then(function(quizes){
+      res.render('quizes/index', {quizes: quizes, errors: []});
+      }).catch(function(error) { next(error);});
+    }       
+  }
+};
+
 
 // GET /quizes/:id
 exports.show = function(req, res) {

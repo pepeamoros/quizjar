@@ -10,4 +10,9 @@ header, nav, section { background: #eee; text-align: center;}
 footer               { background: #eee; text-align: center;}
 nav span             { margin: 0px 10px 0px 0px;}
 
+table				{ padding: 10px; text-align: left;}
+th					{ border-top: 1px solid black;}
+td.body				{ float: left;}
+
+
 #ErrorMsgs           { color: #f61; font-size: smaler}

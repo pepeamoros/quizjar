@@ -1,8 +1,41 @@
+
+<!-- Formulario de busqueda -->
+<form method ="get" action="/quizes?search=&?tema=" >
+  <p class="tematica"> Temática
+  <select name="tema" >
+    <option value="" selected>Todas</option>
+    <option value="humanidades">Humanidades</option>
+    <option value="ocio">Ocio</option>
+    <option value="ciencia">Ciencia</option>
+    <option value="tecnologia">Tecnología</option>
+    <option value="geografia">Geografía</option>
+  </select>
+  </p>
+
+  <p>
+  <label class="field" for="Texto"></label>
+  <input type="text" name="search" placeholder="Buscar" class="textbox-200"/>
+  <button type="Submit" class="submit">Enviar</button>
+  </p>
+
+  <p>
+    <a href="/quizes/new"><button type="button" class="newQuestion"> Crear Pregunta</button></a>
+  </p>
+</form>
+<br/>
+
+<!-- Lista de preguntas -->
 <table>
-  <% var i; for (i=0; i < quizes.length; i++) { %>        
-    <tr>
-      <td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
-      <td><a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a></td>
+  <% 
+  var auxTema = "";
+  var i; for (i=0; i < quizes.length; i++) {  
+    if(auxTema !== quizes[i].tema) {
+      auxTema = quizes[i].tema
+  %>
+    <tr><th colspan="3"><%= quizes[i].tema%></th></tr>
+  <%}%>
+
+    <tr>  
       <td>
         <form method="post" action="quizes/<%= quizes[i].id %>?_method=delete">
           <button type="submit" onClick="return confirm('Borrar: <%= quizes[i].pregunta %>');">
@@ -10,8 +43,10 @@
           </button>
         </form>
       </td>
+      
+      <td><a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a></td> 
+      <td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>    
     </tr> 
   <% } %>
 </table>
 <p/>
-<a href="/quizes/new"><button>Crear pregunta</button></a>
