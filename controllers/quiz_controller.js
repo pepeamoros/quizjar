@@ -11,6 +11,7 @@ var arrayTemas = {
 };
 
 
+
 // Autoload :id
 exports.load = function(req, res, next, quizId) {
   models.Quiz.find(quizId).then(
@@ -22,6 +23,7 @@ exports.load = function(req, res, next, quizId) {
     }
   ).catch(function(error){next(error)});
 };
+
 
 // GET /quizes
 exports.index = function(req, res) {
@@ -113,6 +115,11 @@ exports.destroy = function(req, res) {
   req.quiz.destroy().then( function() {
     res.redirect('/quizes');
   }).catch(function(error){next(error)});
+};
+
+// GET author
+exports.author = function(req, res){
+ res.render ('author', {autor: 'José Amoros Rico', errors: []});
 };
 
 //  console.log("req.quiz.id: " + req.quiz.id);
