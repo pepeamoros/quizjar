@@ -42,6 +42,22 @@ app.use(function(req, res, next) {
   next();
 });
 
+//auto-logout
+app.use(function (req, res, next) {
+  var lastreq = req.session.lastreq;
+  
+  // Renueva la hora de la sesión
+  req.session.lastreq = Date.now();
+  req.session.destroy = false;
+  
+  // Si han trascurrido mas de 2 minutos se cierra la sesión
+  if (lastreq && (req.session.lastreq - lastreq) >= 120000)  {
+    delete req.session.user;
+    req.session.destroy = true;
+  } 
+   
+  next();
+})
 
 app.use('/', routes);
 
@@ -77,6 +93,5 @@ app.use(function(err, req, res, next) {
         errors: []
     });
 });
-
 
 module.exports = app;
